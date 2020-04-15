@@ -2,37 +2,43 @@ package ru.netology;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConditionerTest {
-    @Test
-    public void shouldCreate() {
+
+    @ParameterizedTest
+    @CsvSource(
+            value = {
+                    "Increase current temperature correct, 21, 21",
+                    "Increase current temperature uncorrect, 22, 20",
+                    "Over max temperature, 31, 20"
+            }
+    )
+    public void shouldIncreaseCurrentTemperature(String name, int amount, int expected) {
         Conditioner conditioner = new Conditioner();
+        assertEquals(expected, conditioner.increaseCurrentTemperature(amount));
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+            value = {
+                    "Decrease current temperature correct, 19, 19 ",
+                    "Decrease current temperature uncorrect, 15, 20",
+                    "Under min temperature, 5, 20"
+            }
+    )
+    public void shouldDecreaseCurrentTemperature(String name, int amount, int expected) {
+        Conditioner conditioner = new Conditioner();
+        assertEquals(expected, conditioner.decreaseCurrentTemperature(amount));
     }
 
     @Test
-    public void shouldInitFieldToZeroValues() {
+    public void shouldGetName() {
         Conditioner conditioner = new Conditioner();
-        assertNull(conditioner.name);
-        assertEquals(0, conditioner.maxTemperature);
-        assertEquals(0, conditioner.minTemperature);
-        assertEquals(0, conditioner.currentTemperature);
-        assertFalse(conditioner.on);
-    }
-
-    @Test
-    @Disabled
-    public void shouldThrowNPE() {
-        Conditioner conditioner = new Conditioner();
-        assertEquals(0, conditioner.name.length());
-    }
-
-    @Test
-    public void shouldChangeFields() {
-        Conditioner conditioner = new Conditioner();
-        assertEquals(0, conditioner.currentTemperature);
-        conditioner.currentTemperature = -100;
-        assertEquals(-100, conditioner.currentTemperature);
+        String expected = "Кондей";
+        assertEquals(expected, conditioner.getName());
     }
 }
