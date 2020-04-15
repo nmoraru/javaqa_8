@@ -15,7 +15,7 @@ public class Conditioner {
             return this.currentTemperature;
         }
         this.currentTemperature = currentTemperature;
-        return currentTemperature;
+        return this.currentTemperature;
     }
 
     public int decreaseCurrentTemperature(int currentTemperature) {
@@ -26,7 +26,7 @@ public class Conditioner {
             return this.currentTemperature;
         }
         this.currentTemperature = currentTemperature;
-        return currentTemperature;
+        return this.currentTemperature;
     }
 
     public int getCurrentTemperature() {
