@@ -2,35 +2,48 @@ package ru.netology;
 
 public class Conditioner {
     private String name = "Кондей";
-    private int maxTemperature = 30;
-    private int minTemperature = 10;
-    private int currentTemperature = 20;
+    private int maxTemperature;
+    private int minTemperature;
+    private int currentTemperature;
     private boolean on;
 
-    public int increaseCurrentTemperature(int currentTemperature) {
-        if (currentTemperature > maxTemperature) {
-            return this.currentTemperature;
-        }
-        if (currentTemperature != this.currentTemperature + 1) {
-            return this.currentTemperature;
+    public void setCurrentTemperature(int currentTemperature) {
+        if (currentTemperature < minTemperature && currentTemperature > maxTemperature) {
+            return;
         }
         this.currentTemperature = currentTemperature;
-        return this.currentTemperature;
-    }
-
-    public int decreaseCurrentTemperature(int currentTemperature) {
-        if (currentTemperature < minTemperature) {
-            return this.currentTemperature;
-        }
-        if (currentTemperature != this.currentTemperature - 1) {
-            return this.currentTemperature;
-        }
-        this.currentTemperature = currentTemperature;
-        return this.currentTemperature;
     }
 
     public int getCurrentTemperature() {
         return currentTemperature;
+    }
+
+    public void increaseCurrentTemperature() {
+        if (currentTemperature >= maxTemperature) {
+            return;
+        }
+        currentTemperature++;
+    }
+
+    public void decreaseCurrentTemperature() {
+        if (currentTemperature <= minTemperature) {
+            return;
+        }
+        currentTemperature--;
+    }
+
+    public void setMaxTemperature(int maxTemperature) {
+        this.maxTemperature = maxTemperature;
+    }
+    public int getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public void setMinTemperature(int minTemperature) {
+        this.minTemperature = minTemperature;
+    }
+    public int getMinTemperature() {
+        return minTemperature;
     }
 
     public String getName() {

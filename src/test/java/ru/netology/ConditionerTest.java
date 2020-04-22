@@ -11,33 +11,42 @@ class ConditionerTest {
     @ParameterizedTest
     @CsvSource(
             value = {
-                    "Increase current temperature correct, 21, 21",
-                    "Increase current temperature uncorrect, 22, 20",
-                    "Over max temperature, 31, 20"
+                    "Increase normal current temperature, 10, 30, 20, 21",
+                    "Increase max temperature, 10, 30, 30, 30"
             }
     )
-    public void shouldIncreaseCurrentTemperature(String name, int amount, int expected) {
+    public void shouldIncreaseCurrentTemperature(String name, int minTemperature, int maxTemperature,
+                                                 int currentTemperature, int expected) {
         Conditioner conditioner = new Conditioner();
-        assertEquals(expected, conditioner.increaseCurrentTemperature(amount));
+        conditioner.setMinTemperature(minTemperature);
+        conditioner.setMaxTemperature(maxTemperature);
+        conditioner.setCurrentTemperature(currentTemperature);
+        conditioner.increaseCurrentTemperature();
+        assertEquals(expected, conditioner.getCurrentTemperature(), "Values should be equal");
     }
+
 
     @ParameterizedTest
     @CsvSource(
             value = {
-                    "Decrease current temperature correct, 19, 19 ",
-                    "Decrease current temperature uncorrect, 15, 20",
-                    "Under min temperature, 5, 20"
+                    "Decrease normal current temperature, 10, 30, 20, 19 ",
+                    "Decrease min temperature, 10, 30, 10, 10"
             }
     )
-    public void shouldDecreaseCurrentTemperature(String name, int amount, int expected) {
+    public void shouldDecreaseCurrentTemperature(String name, int minTemperature, int maxTemperature,
+                                                 int currentTemperature, int expected) {
         Conditioner conditioner = new Conditioner();
-        assertEquals(expected, conditioner.decreaseCurrentTemperature(amount));
+        conditioner.setMinTemperature(minTemperature);
+        conditioner.setMaxTemperature(maxTemperature);
+        conditioner.setCurrentTemperature(currentTemperature);
+        conditioner.decreaseCurrentTemperature();
+        assertEquals(expected, conditioner.getCurrentTemperature(), "Values should be equal");
     }
 
     @Test
     public void shouldGetName() {
         Conditioner conditioner = new Conditioner();
         String expected = "Кондей";
-        assertEquals(expected, conditioner.getName());
+        assertEquals(expected, conditioner.getName(), "Values should be equal");
     }
 }
