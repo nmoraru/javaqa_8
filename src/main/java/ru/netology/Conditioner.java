@@ -8,7 +8,7 @@ public class Conditioner {
     private boolean on;
 
     public void setCurrentTemperature(int currentTemperature) {
-        if (currentTemperature < minTemperature && currentTemperature > maxTemperature) {
+        if (currentTemperature < minTemperature || currentTemperature > maxTemperature) {
             return;
         }
         this.currentTemperature = currentTemperature;

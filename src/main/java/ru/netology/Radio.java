@@ -3,73 +3,95 @@ package ru.netology;
 public class Radio {
     private String name = "Атмосфера";
 
-    private int minVolume = 0;
-    private int maxVolume = 10;
-    private int currentVolume = 5;
+    private int minVolume;
+    private int maxVolume;
+    private int currentVolume;
 
-    private int minRadioStation = 0;
-    private int maxRadioStation = 9;
-    private int currentRadioStation = 5;
+    private int minRadioStation;
+    private int maxRadioStation;
+    private int currentRadioStation;
 
-    public int buttonNextStation() {
-        if (currentRadioStation == maxRadioStation) {
-            currentRadioStation = minRadioStation;
-            return currentRadioStation;
-        }
-        currentRadioStation++;
-        return currentRadioStation;
+    public void setMinVolume(int minVolume) {
+        this.minVolume = minVolume;
+    }
+    public int getMinVolume() {
+        return minVolume;
     }
 
-    public int buttonPrevStation() {
-        if (currentRadioStation == minRadioStation) {
-            currentRadioStation = maxRadioStation;
-            return currentRadioStation;
-        }
-        currentRadioStation--;
-        return currentRadioStation;
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
+    }
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
-    public int controller(int currentRadioStation) {
-        if (currentRadioStation > maxRadioStation) {
-            return this.currentRadioStation;
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume < minVolume || currentVolume > maxVolume) {
+            return;
         }
-        if (currentRadioStation < minRadioStation) {
-            return this.currentRadioStation;
-        }
-        this.currentRadioStation = currentRadioStation;
-        return this.currentRadioStation;
+        this.currentVolume = currentVolume;
     }
-
-    public int buttonVolumeUp() {
-        if (currentVolume == maxVolume) {
-            return currentVolume;
-        }
-        currentVolume++;
-        return currentVolume;
-    }
-
-    public int buttonVolumeDown() {
-        if (currentVolume == minVolume) {
-            return currentVolume;
-        }
-        currentVolume--;
-        return currentVolume;
-    }
-
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
-
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public void setCurrentRadioStation(int currentRadioStation) {
-        this.currentRadioStation = currentRadioStation;
+    public void setMinRadioStation(int minRadioStation) {
+        this.minRadioStation = minRadioStation;
+    }
+    public int getMinRadioStation() {
+        return minRadioStation;
     }
 
-    public void setCurrentVolume(int currentVolume) {
-        this.currentVolume = currentVolume;
+    public void setMaxRadioStation(int maxRadioStation) {
+        this.maxRadioStation = maxRadioStation;
+    }
+    public int getMaxRadioStation() {
+        return maxRadioStation;
+    }
+
+    public void setCurrentRadioStation(int currentRadioStation) {
+        if (currentRadioStation < minRadioStation || currentRadioStation > maxRadioStation) {
+            return;
+        }
+        this.currentRadioStation = currentRadioStation;
+    }
+    public int getCurrentRadioStation() {
+        return currentRadioStation;
+    }
+
+    public void buttonNextStation() {
+        if (currentRadioStation == maxRadioStation) {
+            currentRadioStation = minRadioStation;
+        }
+        else currentRadioStation++;
+    }
+
+    public void buttonPrevStation() {
+        if (currentRadioStation == minRadioStation) {
+            currentRadioStation = maxRadioStation;
+        }
+        else currentRadioStation--;
+    }
+
+    public void stationFromController(int stationFromController) {
+        if (stationFromController < minRadioStation || stationFromController > maxRadioStation) {
+            return;
+        }
+        currentRadioStation = stationFromController;
+    }
+
+    public void buttonVolumeUp() {
+        if (currentVolume == maxVolume) {
+            return;
+        }
+        currentVolume++;
+    }
+
+    public void buttonVolumeDown() {
+        if (currentVolume == minVolume) {
+            return;
+        }
+        currentVolume--;
     }
 
 }
