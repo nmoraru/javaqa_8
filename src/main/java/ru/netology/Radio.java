@@ -1,5 +1,13 @@
 package ru.netology;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 public class Radio {
     private String name = "Атмосфера";
     private int minVolume = 0;
@@ -9,9 +17,6 @@ public class Radio {
     private int maxRadioStation = 10;
     private int currentRadioStation;
     private boolean on;
-
-    public Radio() {
-    }
 
     public Radio(int minVolume, int maxVolume, int minRadioStation, int maxRadioStation, boolean on) {
         if (isOn(on)) {
@@ -56,14 +61,6 @@ public class Radio {
         return (maxVolume <= minVolume);
     }
 
-    public int getMinVolume() {
-        return minVolume;
-    }
-
-    public int getMaxVolume() {
-        return maxVolume;
-    }
-
     public void setCurrentVolume(int currentVolume, boolean on) {
         if (isOn(on)) {
             return;
@@ -76,18 +73,6 @@ public class Radio {
 
     private boolean isCurrentVolumeBetweenMinAndMax(int currentVolume) {
         return (currentVolume < minVolume || currentVolume > maxVolume);
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public int getMinRadioStation() {
-        return minRadioStation;
-    }
-
-    public int getMaxRadioStation() {
-        return maxRadioStation;
     }
 
     private boolean isMinStationNotOverMaxStation(int minRadioStation, int maxRadioStation) {
@@ -106,10 +91,6 @@ public class Radio {
 
     private boolean isCurrentRadioStationBetweenMinAndMax(int currentRadioStation) {
         return (currentRadioStation < minRadioStation || currentRadioStation > maxRadioStation);
-    }
-
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
     }
 
     public void buttonNextStation(boolean on) {
@@ -163,14 +144,6 @@ public class Radio {
             return;
         }
         currentVolume--;
-    }
-
-    public boolean getOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
     }
 
     private boolean isOn(boolean on) {

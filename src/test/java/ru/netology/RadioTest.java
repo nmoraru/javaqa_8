@@ -239,4 +239,52 @@ class RadioTest {
         assertEquals(expectedMaxVolume, radio.getMaxVolume(), name);
     }
 
+    @Test
+    public void shouldIsOn() {
+        Radio radio = new Radio();
+        boolean expected = false;
+        assertEquals(expected, radio.isOn());
+    }
+
+    @Test
+    public void shouldSetOn() {
+        Radio radio = new Radio();
+        radio.setOn(true);
+        boolean expected = true;
+        assertEquals(expected, radio.isOn());
+    }
+
+    @Test
+    public void TEST() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(5);
+        int expected = 5;
+        assertEquals(expected, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldAllArgsConstructor() {
+        Radio radio = new Radio(
+                "Атмосфера-1", 1, 101, 1, 1,
+                11, 1, false
+        );
+        String expectedName = "Атмосфера-1";
+        boolean expectedOn = false;
+        int expectedMinStation = 1;
+        int expectedMaxStation = 11;
+        int expectedMinVolume = 1;
+        int expectedMaxVolume = 101;
+        int expectedCurrentVolume = 1;
+        int expectedCurrentStation = 1;
+
+        assertEquals(expectedName, radio.getName());
+        assertEquals(expectedOn, radio.isOn());
+        assertEquals(expectedMinStation, radio.getMinRadioStation());
+        assertEquals(expectedMaxStation, radio.getMaxRadioStation());
+        assertEquals(expectedMinVolume, radio.getMinVolume());
+        assertEquals(expectedMaxVolume, radio.getMaxVolume());
+        assertEquals(expectedCurrentVolume, radio.getCurrentVolume());
+        assertEquals(expectedCurrentStation, radio.getCurrentRadioStation());
+    }
+
 }
