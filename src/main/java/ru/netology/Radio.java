@@ -1,51 +1,67 @@
 package ru.netology;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 public class Radio {
     private String name = "Атмосфера";
-
-    private int minVolume = 1;
-    private int maxVolume = 10;
+    private int minVolume = 0;
+    private int maxVolume = 100;
     private int currentVolume;
-
-    private int minRadioStation = 1;
-    private int maxRadioStation = 9;
+    private int minRadioStation = 0;
+    private int maxRadioStation = 10;
     private int currentRadioStation;
-
     private boolean on;
 
-    public void setMinVolume(int minVolume) {
+    public Radio(int minVolume, int maxVolume, int minRadioStation, int maxRadioStation, boolean on) {
         if (isOn(on)) {
             return;
         }
         if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
             return;
         }
-        else this.minVolume = minVolume;
+        this.minVolume = minVolume;
+        this.maxVolume = maxVolume;
+
+        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
+            return;
+        }
+        this.minRadioStation = minRadioStation;
+        this.maxRadioStation = maxRadioStation;
+    }
+
+    public Radio(int minRadioStation, int maxRadioStation, boolean on) {
+        if (isOn(on)) {
+            return;
+        }
+        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
+            return;
+        }
+        this.minRadioStation = minRadioStation;
+        this.maxRadioStation = maxRadioStation;
+    }
+
+    public Radio( int minVolume, boolean on, int maxVolume) {
+        if (isOn(on)) {
+            return;
+        }
+        if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
+            return;
+        }
+        this.minVolume = minVolume;
+        this.maxVolume = maxVolume;
     }
 
     private boolean isMinVolumeNotOverMaxVolume(int minVolume, int maxVolume) {
         return (maxVolume <= minVolume);
     }
 
-    public int getMinVolume() {
-        return minVolume;
-    }
-
-    public void setMaxVolume(int maxVolume) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
-            return;
-        }
-        else this.maxVolume = maxVolume;
-    }
-
-    public int getMaxVolume() {
-        return maxVolume;
-    }
-
-    public void setCurrentVolume(int currentVolume) {
+    public void setCurrentVolume(int currentVolume, boolean on) {
         if (isOn(on)) {
             return;
         }
@@ -59,60 +75,25 @@ public class Radio {
         return (currentVolume < minVolume || currentVolume > maxVolume);
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setMinRadioStation(int minRadioStation) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
-            return;
-        } else this.minRadioStation = minRadioStation;
-    }
-
-    public int getMinRadioStation() {
-        return minRadioStation;
-    }
-
-    public void setMaxRadioStation(int maxRadioStation) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
-            return;
-        }
-        else this.maxRadioStation = maxRadioStation;
-    }
-
-    public int getMaxRadioStation() {
-        return maxRadioStation;
-    }
-
     private boolean isMinStationNotOverMaxStation(int minRadioStation, int maxRadioStation) {
         return (maxRadioStation <= minRadioStation);
     }
 
-    public void setCurrentRadioStation(int currentRadioStation) {
+    public void setCurrentRadioStation(int currentRadioStation, boolean on) {
         if (isOn(on)) {
             return;
         }
         if (isCurrentRadioStationBetweenMinAndMax(currentRadioStation)) {
             return;
         }
-        this.currentRadioStation = currentRadioStation;
+        else this.currentRadioStation = currentRadioStation;
     }
 
     private boolean isCurrentRadioStationBetweenMinAndMax(int currentRadioStation) {
         return (currentRadioStation < minRadioStation || currentRadioStation > maxRadioStation);
     }
 
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
-
-    public void buttonNextStation() {
+    public void buttonNextStation(boolean on) {
         if (isOn(on)) {
             return;
         }
@@ -121,16 +102,17 @@ public class Radio {
         } else currentRadioStation++;
     }
 
-    public void buttonPrevStation() {
+    public void buttonPrevStation(boolean on) {
         if (isOn(on)) {
             return;
         }
         if (currentRadioStation == minRadioStation) {
             currentRadioStation = maxRadioStation;
-        } else currentRadioStation--;
+        }
+        else currentRadioStation--;
     }
 
-    public void stationFromController(int stationFromController) {
+    public void stationFromController(int stationFromController, boolean on) {
         if (isOn(on)) {
             return;
         }
@@ -144,7 +126,7 @@ public class Radio {
         return (stationFromController < minRadioStation || stationFromController > maxRadioStation);
     }
 
-    public void buttonVolumeUp() {
+    public void buttonVolumeUp(boolean on) {
         if (isOn(on)) {
             return;
         }
@@ -154,7 +136,7 @@ public class Radio {
         currentVolume++;
     }
 
-    public void buttonVolumeDown() {
+    public void buttonVolumeDown(boolean on) {
         if (isOn(on)) {
             return;
         }
@@ -162,14 +144,6 @@ public class Radio {
             return;
         }
         currentVolume--;
-    }
-
-    public boolean getOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
     }
 
     private boolean isOn(boolean on) {
