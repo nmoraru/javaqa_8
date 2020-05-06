@@ -13,8 +13,8 @@ public class Radio {
     public Radio() {
     }
 
-    public Radio(int minVolume, int maxVolume, int minRadioStation, int maxRadioStation, boolean on) {
-        if (isOn(on)) {
+    public Radio(int maxVolume, int maxRadioStation, boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
@@ -28,28 +28,6 @@ public class Radio {
         }
         this.minRadioStation = minRadioStation;
         this.maxRadioStation = maxRadioStation;
-    }
-
-    public Radio(int minRadioStation, int maxRadioStation, boolean on) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
-            return;
-        }
-        this.minRadioStation = minRadioStation;
-        this.maxRadioStation = maxRadioStation;
-    }
-
-    public Radio( int minVolume, boolean on, int maxVolume) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
-            return;
-        }
-        this.minVolume = minVolume;
-        this.maxVolume = maxVolume;
     }
 
     private boolean isMinVolumeNotOverMaxVolume(int minVolume, int maxVolume) {
@@ -65,7 +43,7 @@ public class Radio {
     }
 
     public void setCurrentVolume(int currentVolume, boolean on) {
-        if (isOn(on)) {
+        if (isOff(on)) {
             return;
         }
         if (isCurrentVolumeBetweenMinAndMax(currentVolume)) {
@@ -95,13 +73,13 @@ public class Radio {
     }
 
     public void setCurrentRadioStation(int currentRadioStation, boolean on) {
-        if (isOn(on)) {
+        if (isOff(on)) {
             return;
         }
         if (isCurrentRadioStationBetweenMinAndMax(currentRadioStation)) {
             return;
         }
-        else this.currentRadioStation = currentRadioStation;
+        this.currentRadioStation = currentRadioStation;
     }
 
     private boolean isCurrentRadioStationBetweenMinAndMax(int currentRadioStation) {
@@ -112,41 +90,30 @@ public class Radio {
         return currentRadioStation;
     }
 
-    public void buttonNextStation(boolean on) {
-        if (isOn(on)) {
+    public void selectNextStation(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentRadioStation == maxRadioStation) {
             currentRadioStation = minRadioStation;
-        } else currentRadioStation++;
+        } else {
+            currentRadioStation++;
+        }
     }
 
-    public void buttonPrevStation(boolean on) {
-        if (isOn(on)) {
+    public void selectPrevStation(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentRadioStation == minRadioStation) {
             currentRadioStation = maxRadioStation;
+        } else {
+            currentRadioStation--;
         }
-        else currentRadioStation--;
     }
 
-    public void stationFromController(int stationFromController, boolean on) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isStationFromControllerBetweenMinAndMax(stationFromController)) {
-            return;
-        }
-        currentRadioStation = stationFromController;
-    }
-
-    private boolean isStationFromControllerBetweenMinAndMax(int stationFromController) {
-        return (stationFromController < minRadioStation || stationFromController > maxRadioStation);
-    }
-
-    public void buttonVolumeUp(boolean on) {
-        if (isOn(on)) {
+    public void selectVolumeUp(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentVolume == maxVolume) {
@@ -155,8 +122,8 @@ public class Radio {
         currentVolume++;
     }
 
-    public void buttonVolumeDown(boolean on) {
-        if (isOn(on)) {
+    public void selectVolumeDown(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentVolume == minVolume) {
@@ -173,7 +140,7 @@ public class Radio {
         this.on = on;
     }
 
-    private boolean isOn(boolean on) {
+    private boolean isOff(boolean on) {
         return (on == false);
     }
 }
