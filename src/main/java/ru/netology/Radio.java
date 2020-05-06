@@ -2,25 +2,32 @@ package ru.netology;
 
 public class Radio {
     private String name = "Атмосфера";
-
-    private int minVolume = 1;
-    private int maxVolume = 10;
+    private int minVolume = 0;
+    private int maxVolume = 100;
     private int currentVolume;
-
-    private int minRadioStation = 1;
-    private int maxRadioStation = 9;
+    private int minRadioStation = 0;
+    private int maxRadioStation = 10;
     private int currentRadioStation;
-
     private boolean on;
 
-    public void setMinVolume(int minVolume) {
-        if (isOn(on)) {
+    public Radio() {
+    }
+
+    public Radio(int maxVolume, int maxRadioStation, boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
             return;
         }
-        else this.minVolume = minVolume;
+        this.minVolume = minVolume;
+        this.maxVolume = maxVolume;
+
+        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
+            return;
+        }
+        this.minRadioStation = minRadioStation;
+        this.maxRadioStation = maxRadioStation;
     }
 
     private boolean isMinVolumeNotOverMaxVolume(int minVolume, int maxVolume) {
@@ -31,22 +38,12 @@ public class Radio {
         return minVolume;
     }
 
-    public void setMaxVolume(int maxVolume) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinVolumeNotOverMaxVolume(minVolume, maxVolume)) {
-            return;
-        }
-        else this.maxVolume = maxVolume;
-    }
-
     public int getMaxVolume() {
         return maxVolume;
     }
 
-    public void setCurrentVolume(int currentVolume) {
-        if (isOn(on)) {
+    public void setCurrentVolume(int currentVolume, boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (isCurrentVolumeBetweenMinAndMax(currentVolume)) {
@@ -63,27 +60,8 @@ public class Radio {
         return currentVolume;
     }
 
-    public void setMinRadioStation(int minRadioStation) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
-            return;
-        } else this.minRadioStation = minRadioStation;
-    }
-
     public int getMinRadioStation() {
         return minRadioStation;
-    }
-
-    public void setMaxRadioStation(int maxRadioStation) {
-        if (isOn(on)) {
-            return;
-        }
-        if (isMinStationNotOverMaxStation(minRadioStation, maxRadioStation)) {
-            return;
-        }
-        else this.maxRadioStation = maxRadioStation;
     }
 
     public int getMaxRadioStation() {
@@ -94,8 +72,8 @@ public class Radio {
         return (maxRadioStation <= minRadioStation);
     }
 
-    public void setCurrentRadioStation(int currentRadioStation) {
-        if (isOn(on)) {
+    public void setCurrentRadioStation(int currentRadioStation, boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (isCurrentRadioStationBetweenMinAndMax(currentRadioStation)) {
@@ -112,40 +90,30 @@ public class Radio {
         return currentRadioStation;
     }
 
-    public void buttonNextStation() {
-        if (isOn(on)) {
+    public void selectNextStation(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentRadioStation == maxRadioStation) {
             currentRadioStation = minRadioStation;
-        } else currentRadioStation++;
+        } else {
+            currentRadioStation++;
+        }
     }
 
-    public void buttonPrevStation() {
-        if (isOn(on)) {
+    public void selectPrevStation(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentRadioStation == minRadioStation) {
             currentRadioStation = maxRadioStation;
-        } else currentRadioStation--;
-    }
-
-    public void stationFromController(int stationFromController) {
-        if (isOn(on)) {
-            return;
+        } else {
+            currentRadioStation--;
         }
-        if (isStationFromControllerBetweenMinAndMax(stationFromController)) {
-            return;
-        }
-        currentRadioStation = stationFromController;
     }
 
-    private boolean isStationFromControllerBetweenMinAndMax(int stationFromController) {
-        return (stationFromController < minRadioStation || stationFromController > maxRadioStation);
-    }
-
-    public void buttonVolumeUp() {
-        if (isOn(on)) {
+    public void selectVolumeUp(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentVolume == maxVolume) {
@@ -154,8 +122,8 @@ public class Radio {
         currentVolume++;
     }
 
-    public void buttonVolumeDown() {
-        if (isOn(on)) {
+    public void selectVolumeDown(boolean on) {
+        if (isOff(on)) {
             return;
         }
         if (currentVolume == minVolume) {
@@ -172,7 +140,7 @@ public class Radio {
         this.on = on;
     }
 
-    private boolean isOn(boolean on) {
+    private boolean isOff(boolean on) {
         return (on == false);
     }
 }
